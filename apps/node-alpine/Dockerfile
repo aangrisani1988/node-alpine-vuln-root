@@ -1,25 +1,23 @@
-FROM node:16-alpine3.15
+FROM node:18-alpine3.16
 
-# Lock to Alpine 3.15 repos to get vulnerable packages
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.15/main" > /etc/apk/repositories && \
-    echo "http://dl-cdn.alpinelinux.org/alpine/v3.15/community" >> /etc/apk/repositories
-
-# Install packages (gets vulnerable 3.15 versions automatically)
-# Do NOT run 'apk upgrade'
+# Install OS packages to increase CVE surface
+# This is a DEMO image - intentionally vulnerable for security tool testing
+# NEVER use this approach in production
 RUN apk add --no-cache \
     ca-certificates \
     curl \
     tzdata \
-    openssl \
-    libssl1.1 \
-    libcrypto1.1 \
-    busybox \
-    openssh-client \
-    git \
+    libssl3 \
+    libcrypto3 \
+    libgcc \
+    libstdc++ \
+    busybox-extras \
     bind-tools \
-    zlib \
-    libxml2 \
-    libxslt \
+    iproute2 \
+    iputils \
+    net-tools \
+    openssh-client \
+    file \
     tar \
     unzip \
     xz
